@@ -1,0 +1,6 @@
+{
+  "node-option": ["import=tsx"],
+  "spec": "mobiletesting/tests/**/*.spec.ts",
+  "timeout": 150000,
+  "retries": 2
+}

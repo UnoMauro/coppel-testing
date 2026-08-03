@@ -1,0 +1,11 @@
+node_modules/
+.env
+test-results/
+test-results-api/
+playwright-report/
+playwright-report-api/
+.DS_Store
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

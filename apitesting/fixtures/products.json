@@ -1,0 +1,26 @@
+{
+  "nodeContext": {
+    "pmNodeId": "11404",
+    "prNodeId": "11419",
+    "regionId": "9",
+    "geoCityID": "107"
+  },
+  "searchTerms": [
+    { "term": "jersey argentina", "expectedNameContains": "argentina", "minResults": 1 },
+    { "term": "audifonos", "expectedNameContains": "audífonos", "minResults": 1 }
+  ],
+  "products": [
+    {
+      "name": "Jersey Local Selección Argentina Manga Larga Adidas Copa Mundial 2026 para Hombre",
+      "partNumber": "MKP-747445032",
+      "skuId": "IMKP-747445032N2252",
+      "href": "/pdp/jersey-local-seleccion-argentina-manga-larga-adidas-copa-mundial-2026-para-hombre-mkp-747445032"
+    },
+    {
+      "name": "Jersey Local Selección Argentina Manga Larga Adidas Copa Mundial 2026 para Hombre",
+      "partNumber": "MKP-747445032",
+      "skuId": "IMKP-747445047N2252",
+      "href": "/pdp/jersey-local-seleccion-argentina-manga-larga-adidas-copa-mundial-2026-para-hombre-mkp-747445032"
+    }
+  ]
+}
