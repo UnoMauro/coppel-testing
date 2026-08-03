@@ -63,9 +63,7 @@ Cada suite genera su propio reporte HTML (`playwright-report/` y `playwright-rep
 
 Ambos suites corren contra la producción real de coppel.com, no un entorno de pruebas ni mocks, así que hay un par de cosas que valen la pena saber:
 
-- **Autenticación de la API**: Coppel no expone un endpoint tipo `POST /auth`. El JWT de invitado (`azt`) se genera del lado del cliente al cargar cualquier página de la SPA, así que el fixture de `apitesting/utils/coppelApiClient.ts` usa un navegador real una sola vez para obtenerlo, y de ahí en adelante hace llamadas HTTP puras.
-- **Reintentos**: ambos `playwright.config.ts` reintentan tests fallidos porque el backend real ocasionalmente devuelve errores genéricos transitorios bajo carga — es comportamiento esperado de probar contra producción, no un bug del suite.
-- **InnovaSport**: este proyecto empezó apuntando a innovasport.com, pero su protección anti-bot (Cloudflare) bloqueaba el flujo de agregar al carrito de forma no reproducible en CI. Se migró a Coppel, que no presenta ese problema.
+
 - **`--headed` y Akamai**: Coppel corre detrás de Akamai Bot Manager (cookies `_abck`/`bm_sz`, header `akamai-grn`). Corriendo el suite de frontend con `npx playwright test --headed` se reprodujo de forma consistente un `net::ERR_HTTP2_PROTOCOL_ERROR` en la navegación a los resultados de búsqueda (`/sd/argentina`) -- la conexión se corta a nivel de protocolo antes de recibir HTML, no es un fallo de los Page Objects ni de los locators. En headless el mismo flujo pasa sin problema. Todo apunta a que la heurística anti-bot de Akamai reacciona a las señales de comportamiento propias de un run headed real (timing distinto de eventos de analítica/interacción del lado del cliente) y responde cortando la conexión en vez de servir un 403 normal. Usar headless (`npm test`, el modo por defecto) como modo confiable; `--headed` sirve para debugging visual puntual pero puede ser bloqueado.
 
 - **`test:mobile` y el mismo bloqueo de Akamai**: el mismo `ERR_HTTP2_PROTOCOL_ERROR` de arriba
