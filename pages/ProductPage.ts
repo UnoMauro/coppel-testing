@@ -65,11 +65,20 @@ export class ProductPage extends BasePage {
     await this.addToCartButton().click();
   }
 
-  async getAddedToCartConfirmationText(): Promise<string> {
+   async getAddedToCartConfirmationText(): Promise<string> {
     const modalTitle = this.page.locator('[data-testid="add_to_cart_modal_title"]');
+    // El modal de "elige tu ciudad de entrega" puede reaparecer justo al
+    // agregar al carrito (no solo al cargar la página, que es donde
+    // BasePage.goto ya lo intenta cerrar) y tapar el de confirmación --
+    // pero ese TAMBIÉN es un dialog con botón "Cerrar", así que solo se
+    // cierra un dialog aquí si NO es el de "Agregado al carrito".
+    const otherDialog = this.page.getByRole('dialog').filter({ hasNotText: 'Agregado al carrito' });
+    await otherDialog.getByRole('button', { name: 'Cerrar' }).click({ timeout: 3000 }).catch(() => {});
     await expect(modalTitle).toBeVisible({ timeout: 10000 });
     return (await modalTitle.textContent())?.trim() ?? '';
+
   }
+ 
 
   async getCartBadgeCount(): Promise<number> {
     const badge = this.page.locator('[data-testid="header_cart_badge"]');

@@ -36,18 +36,15 @@ test.describe('Coppel - búsqueda y jersey de Argentina', () => {
     const home = new HomePage(page);
     await home.goto();
     await home.search('argentina');
-
     const results = new SearchResultsPage(page);
     const countText = await results.getResultsCountText();
     expect(countText).toMatch(/\d+\s*resultados/);
-
     const firstTitle = await results.getProductTitle(0);
     expect(firstTitle.toLowerCase()).toContain('argentina');
   });
 
   test('dar clic en un jersey de Argentina abre su ficha de producto', async ({ page }) => {
     const product = await openFirstJerseyArgentina(page);
-
     await expect(page).toHaveURL(/\/pdp\//);
     const title = await product.getProductTitle();
     expect(title.toLowerCase()).toContain('argentina');
@@ -55,12 +52,9 @@ test.describe('Coppel - búsqueda y jersey de Argentina', () => {
 
   test('el control de cantidad puede sumar y restar', async ({ page }) => {
     const product = await openKnownJerseyArgentina(page);
-
     expect(await product.getQuantity()).toBe(1);
-
     await product.increaseQuantity();
     expect(await product.getQuantity()).toBe(2);
-
     await product.decreaseQuantity();
     expect(await product.getQuantity()).toBe(1);
   });

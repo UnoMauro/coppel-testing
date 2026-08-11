@@ -6,7 +6,7 @@
   "scripts": {
     "test": "playwright test",
     "test:api": "playwright test --config=apitesting/playwright.config.ts",
-    "test:mobile": "mocha"
+    "test:mobile": "node --import tsx node_modules/.bin/_mocha"
   },
   "keywords": [],
   "author": "",
